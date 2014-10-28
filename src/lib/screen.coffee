@@ -20,7 +20,7 @@ class ScreenManager extends events.EventEmitter
                     status: @status
 
     _reset: =>
-        @conencted = false
+        @connected = false
         @status = 'Disconnected'
         @socket = null
         @data = {}
