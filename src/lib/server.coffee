@@ -16,7 +16,6 @@ app.io = io
 app.set 'views', VIEW_DIRECTORY
 app.set 'view engine', 'ejs'
 
-app.use require('morgan')('dev')
 app.use bodyParser.json()
 app.use bodyParser.urlencoded(extended: false)
 app.use stylus.middleware
