@@ -1,0 +1,16 @@
+Client:
+
+    ListenPort:     2333
+    Service:        'https://swall.me'
+
+LogFile:      './log.log'
+SQLiteFile:   './db.sqlite'
+
+AssetsFilter:
+    Video: ['.mp4', '.webm']
+    Image: ['.jpg', '.jpeg', '.png']
+
+Thumbnail:
+    Size:
+        Width:  1024
+        Height: 768

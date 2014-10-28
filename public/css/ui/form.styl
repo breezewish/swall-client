@@ -1,0 +1,80 @@
+.textbox
+    margin: 0
+    vertical-align: top
+    box-sizing: border-box
+    height: 32px
+    line-height: 22px
+    outline: 0
+    padding: 4px
+    border: 1px solid $textbox-border-color
+    transition: border-color .2s linear, background-color .2s linear, box-shadow .2s linear
+    background: $textbox-bg-color
+    color: $text-color
+    font-size: 0.9em
+.textbox:hover
+    border-color: $textbox-hover-border-color
+    background: $textbox-hover-bg-color
+.textbox:focus
+    border-color: $focus-color
+    background: $textbox-hover-bg-color
+    box-shadow: $focus-box-shadow
+
+.button
+    font-size: 0.9em
+    cursor: default
+    user-select: none
+    display: inline-block
+    *display: inline
+    height: 24px
+    box-sizing: content-box
+    padding: 4px 25px
+    line-height: 20px
+    border: none
+    background: $button-color
+    border-bottom: 3px solid darken(@background, 50%)
+    color: #FFF !important
+    margin: 0 2px
+    transition: background .2s linear
+    vertical-align: top
+    text-decoration: none !important
+.button:disabled
+    background: #666
+    border-bottom: @background
+.button:enabled:hover
+    background: $button-color-hover
+    border-bottom: 3px solid darken(@background, 50%)
+.button:enabled:focus
+    box-shadow: $focus-box-shadow
+    outline: $focus-border
+.button:enabled:active
+    outline: 0 !important
+    box-shadow: none !important
+    background: $button-color-active
+    border-top: 3px solid darken(@background, 50%)
+    border-bottom: 0 !important
+
+.button-big
+    padding: 15px 50px
+    font-size: 1.5em
+    font-weight: 300
+
+.button-def
+    background: $button-def-color
+    color: #FFF
+    border-bottom: 3px solid darken(@background, 50%)
+.button-def:enabled:hover
+    background: $button-def-color-hover
+    border-bottom: 3px solid darken(@background, 50%)
+.button-def:enabled:active
+    outline: 0 !important
+    box-shadow: none !important
+    background: $button-def-color-active
+    border-top: 3px solid darken(@background, 50%)
+    border-bottom: 0 !important
+
+.form-line
+    padding: 10px 0
+.form-line-big
+    padding: 20px 0
+.form-line-extrabig
+    padding: 40px 0

@@ -1,0 +1,6 @@
+Mac:
+
+brew install ffmpeg --with-libvpx
+brew install imagemagick
+
+patch node_modules/fluent-ffmpeg/lib/recipes.js, Line 218: config.timemarks.length > 1

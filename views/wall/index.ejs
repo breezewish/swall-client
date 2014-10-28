@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<title><%= SCREEN.data.title || 'SWall' %></title>
+<script type="text/javascript">
+var PREFERENCE = <%- JSON.stringify(SCREEN.preference) %>;
+</script>
+<body class="page-wall">
+    <div id="bg"></div>
+    <div id="danmaku" class="<% if (SCREEN.preference.danmaku.visible) { %>show<% } %>"></div>
+    <div id="float-window" class="<% if (SCREEN.preference.danmaku.visible) { %>show<% } %>">弹幕：<%= SCREEN.getShortcutURI() %></div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery.loadImages.min.js"></script>
+<script src="/js/danmaku.js"></script>
+<script src="/js/wall.js"></script>
+</body>

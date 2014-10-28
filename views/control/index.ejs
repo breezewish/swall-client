@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<title><%= SCREEN.data.title || 'SWall Local Controller' %></title>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/control.js"></script>
+<body class="page-control">
+<script>var SCREEN_CONNECTED = <% if (SCREEN.connected) { %>true<% } else { %>false<% } %>;</script>
+    <div class="top">SWALL CONTROLLER | Powered by swall.me | Copyright 2014 Breezewish</div>
+    <div class="nav-action">SCREEN ID: <input type="text" class="textbox role-screen-id" placeholder="Screen ID" value="<%= SCREEN.data.id || '' %>"> <button class="button button-def role-connect-screen">CONNECT</button><% if (SCREEN.connected) { %> <span class="current-screen">（当前屏幕：<%= SCREEN.data.title %>）</span><% } %><div class="conn-state">
+        <div class="conn-state-item conn-client2server" status="disconnected">CLIENT → SERVER: <span class="text">Disconnected</span></div>
+        <div class="conn-state-item conn-controller2client" status="disconnected">CONTROLLER → CLIENT: <span class="text">Disconnected</span></div>
+        <div class="clear"></div>
+    </div></div>
+    <div class="main">
+        <% if (SCREEN.connected) { %>
+        <div class="main-left">
+            <div class="module">
+                <div class="module-title"><h3>弹幕和提示文字</h3><div class="float-right"><button class="button role-danmuku-show">显示</button><button class="button role-danmuku-hide">隐藏</button></div></div>
+            </div>
+            <div class="module">
+                <div class="module-title"><h3>弹幕设置</h3><div class="float-right"><label>Duration: </label><input type="text" class="textbox role-danmaku-duration" value="<%= SCREEN.preference.danmaku.duration %>"> <label>Maxline: </label><input type="text" class="textbox role-danmaku-maxline" value="<%= SCREEN.preference.danmaku.maxline %>"> <button class="button role-danmuku-settings-update">更新</button></div></div>
+            </div>
+            <div class="module">
+                <div class="module-title"><h3>发送弹幕</h3><div class="float-right"><input type="text" class="textbox role-comment-text"> <button class="button role-danmuku-send">发送</button></div></div>
+            </div>
+            <div class="module">
+                <div class="module-title"><h3>弹幕关键字过滤</h3><div class="float-right"><button class="button float-right">保存</button></div></div>
+                <div class="module-main">
+                    <p>使用空格或回车分隔关键字</p>
+                    <textarea class="textbox role-keyword-filter"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="main-right">
+            <div class="module role-module-assets">
+                <div class="module-title"><h3>背景控制</h3><div class="float-right"><button class="button button-def role-assets-opendir">打开资源目录</button> <button class="button role-assets-scan">扫描资源</button></div></div>
+                <div class="module-main"></div>
+            </div>
+        </div>
+        <% } else { %>
+        <div class="screen-notconnected">Please connect to a screen.</div>
+        <% } %>
+    </div>
+</body>
