@@ -179,7 +179,7 @@
                 type: 'GET',
                 cache: false
             }).done(function(data) {
-                if (!data.connected && SCREEN_CONNECTED) {
+                if (data.connected !== SCREEN_CONNECTED) {
                     window.location.reload();
                     return;
                 }
@@ -187,7 +187,6 @@
                 callback && callback(null, data);
             });
         }
-
 
     };
 
@@ -218,6 +217,9 @@
 
         socket.on('statusChange', function(data) {
             Func.changeClientToServerStatus(data.status);
+            if (data.status === 'Connected') {
+                API.updateScreenStatus();
+            }
         });
 
         $('.role-connect-screen').click(function() {
