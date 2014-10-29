@@ -45,4 +45,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-cson'
-  grunt.registerTask 'default', ['copy', 'coffee', 'cson', 'watch']
+  grunt.registerTask 'default', ['copy', 'coffee', 'cson']
+  grunt.registerTask 'debug', ['copy', 'coffee', 'cson', 'watch']
