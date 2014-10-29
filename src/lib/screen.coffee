@@ -45,7 +45,7 @@ class ScreenManager extends events.EventEmitter
     _saveLast: (callback) =>
         DB.run 'INSERT OR REPLACE INTO META (key, value) VALUES ($key, $value)',
             $key: 'LAST_SCREENID'
-            $value: @data.id
+            $value: @data.actid
         , callback
 
     # Connect to remote
@@ -67,22 +67,22 @@ class ScreenManager extends events.EventEmitter
 
             (callback) =>
                 # update preference URI
-                @preference.URI = "#{CONFIG.Client.Service}/#{@data.id}"
+                @preference.URI = "#{CONFIG.Client.Service}/#{@data.actid}"
 
                 # create (if not exists) assets directory
-                Assets.createDirectory @data.id, callback
+                Assets.createDirectory @data.actid, callback
 
             (callback) =>
                 # update database
                 DB.run 'INSERT OR REPLACE INTO INFO (SID, data) VALUES ($sid, $data)',
-                    $sid: @data.id
+                    $sid: @data.actid
                     $data: JSON.stringify(@data)
                 , callback
 
             (callback) =>
                 # query preference
                 DB.all 'SELECT * FROM PREFERENCE WHERE SID = $sid LIMIT 1',
-                    $sid: @data.id
+                    $sid: @data.actid
                 , (err, data) =>
                     @preference = JSON.parse(data[0].DATA) if data? and data.length > 0
                     callback()
@@ -154,22 +154,22 @@ class ScreenManager extends events.EventEmitter
     # Reveal assets directory
     revealAssets: (callback) =>
         throw new Error('Please connect to a screen') if not @connected
-        Assets.openDirectory @data.id
+        Assets.openDirectory @data.actid
         callback && callback()
 
     # Scan assets directory and add missing assets
     scanAssets: (callback) =>
         throw new Error('Please connect to a screen') if not @connected
-        Assets.scan @data.id, callback
+        Assets.scan @data.actid, callback
 
     # Update the description of an asset and return all assets
     updateAssetDesc: (hash, description, callback) =>
         throw new Error('Please connect to a screen') if not @connected
-        Assets.updateDescription @data.id, hash, description, callback
+        Assets.updateDescription @data.actid, hash, description, callback
 
     # Update walls' background
     switchToAsset: (hash, callback) =>
-        Assets.get @data.id, hash, (err, asset) =>
+        Assets.get @data.actid, hash, (err, asset) =>
             return callback && callback err if err
             return callback && callback new Error('Asset not found') if not asset
             SERVER.io.to('wall').emit 'switchTo', asset
@@ -203,7 +203,7 @@ class ScreenManager extends events.EventEmitter
     # Update preference into database
     _updatePreference: (callback) =>
         DB.run 'INSERT OR REPLACE INTO PREFERENCE (SID, data) VALUES ($sid, $data)',
-            $sid: @data.id
+            $sid: @data.actid
             $data: JSON.stringify(@preference)
         , callback
 
