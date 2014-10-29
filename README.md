@@ -39,7 +39,7 @@ grunt  # compile all files
 ## Run
 
 ```bash
-npm start    # start the client applica
+npm start    # start the client application
 ```
 
 ## Interfaces
