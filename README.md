@@ -27,10 +27,18 @@ Social Wall is separated to 2 parts, the server-side and the client-side. Server
 - ffmpeg, for taking snapshot posters for video backgrounds.
 - imagemagick, for generating thumbnails for image backgrounds.
 
+## Initialize
+
+```bash
+npm install  # install modules
+cp config.cson.default config.cson
+cp db.sqlite.default db.sqlite
+grunt  # compile all files
+```
+
 ## Run
 
-```
-npm install  # install modules
+```bash
 npm start    # start the client applica
 ```
 
