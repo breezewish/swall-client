@@ -29,7 +29,7 @@ Social Wall is separated to 2 parts, the server-side and the client-side. Server
 
 ## Initialize
 
-```
+```bash
 npm install  # install modules
 cp config.cson.default config.cson
 cp db.sqlite.default db.sqlite
@@ -38,7 +38,7 @@ grunt  # compile all files
 
 ## Run
 
-```
+```bash
 npm start    # start the client applica
 ```
 
