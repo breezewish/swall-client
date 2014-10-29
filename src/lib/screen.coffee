@@ -92,43 +92,49 @@ class ScreenManager extends events.EventEmitter
 
             (callback) =>
                 # connect to realtime server
-                socket = @socket = io @host
+                lastSocket = @socket
+                @socket = io @host, multiplex: false
 
-                status = 'Connecting'
+                info 'Channel #%s: Connecting', id
+                @status = 'Connecting'
                 @emit 'connecting'
+                
+                @socket.on 'error', (data) =>
+                    info data
+                    @emit 'error', data
 
-                socket.on 'connect', =>
+                @socket.on 'connect', =>
                     info 'Channel #%s: Connected', id
                     @status = 'Connected'
                     @emit 'connect'
-                    socket.emit '/subscribe', id: id
+                    @socket.emit '/subscribe', id: id
 
-                socket.on 'comment', (data) =>
+                @socket.on 'comment', (data) =>
                     @comment data
                     @emit 'comment', data
 
-                socket.on 'disconnect', =>
-                    info 'Channel #%s: Disconnected', id
+                @socket.on 'disconnect', =>
+                    warn 'Channel #%s: Disconnected', id
                     @status = 'Disconnected'
                     @emit 'disconnect'
 
-                socket.on 'reconnect', (attempt) =>
+                @socket.on 'reconnect', (attempt) =>
                     info 'Channel #%s: Reconnected %d', id, attempt
                     @emit 'reconnect', attempt
 
-                socket.on 'reconnect_attempt', =>
+                @socket.on 'reconnect_attempt', =>
                     @emit 'reconnect_attempt'
 
-                socket.on 'reconnecting', (attempt) =>
+                @socket.on 'reconnecting', (attempt) =>
                     info 'Channel #%s: Reconnecting %d', id, attempt
                     @status = 'Reconnecting'
                     @emit 'reconnecting', attempt
 
-                socket.on 'reconnect_error', (err) =>
+                @socket.on 'reconnect_error', (err) =>
                     @emit 'reconnect_error', err
 
-                socket.on 'reconnect_failed', =>
-                    info 'Channel #%s: Reconnect failed', id
+                @socket.on 'reconnect_failed', =>
+                    error 'Channel #%s: Reconnect failed', id
                     @status = 'Reconnect failed'
                     @emit 'reconnect_failed'
 

@@ -8,7 +8,7 @@
 <body class="page-control">
 <script>var SCREEN_CONNECTED = <% if (SCREEN.connected) { %>true<% } else { %>false<% } %>;</script>
     <div class="top">SWALL CONTROLLER | Powered by swall.me | Copyright 2014 Breezewish</div>
-    <div class="nav-action">SCREEN ID: <input type="text" class="textbox role-screen-id" placeholder="Screen ID" value="<%= SCREEN.data.id || '' %>"> <button class="button button-def role-connect-screen">CONNECT</button><% if (SCREEN.connected) { %> <span class="current-screen">（当前屏幕：<%= SCREEN.data.title %>）</span><% } %><div class="conn-state">
+    <div class="nav-action">SCREEN ID: <input type="text" class="textbox role-screen-id" placeholder="Screen ID" value="<%= SCREEN.data.actid || '' %>"> <button class="button button-def role-connect-screen">CONNECT</button><% if (SCREEN.connected) { %> <span class="current-screen">（当前屏幕：<%= SCREEN.data.title %>）</span><% } %><div class="conn-state">
         <div class="conn-state-item conn-client2server" status="disconnected">CLIENT → SERVER: <span class="text">Disconnected</span></div>
         <div class="conn-state-item conn-controller2client" status="disconnected">CONTROLLER → CLIENT: <span class="text">Disconnected</span></div>
         <div class="clear"></div>
