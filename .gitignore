@@ -34,3 +34,4 @@ log.log
 config.cson
 
 public/assets_*
+public/css/style.css
