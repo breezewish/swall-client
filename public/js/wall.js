@@ -1,6 +1,7 @@
 (function() {
 
     var lastAsset = null;
+    var autoReplay = PREFERENCE.assets.repeat;
 
     String.prototype.endsWith = function(suffix) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
@@ -38,6 +39,9 @@
                 var source = '<source src="' + asset.URI + '" type="video/mp4">';
             }
             var $dom = $('<video class="asset-video asset-item" autoplay>' + source + '</video>');
+            if (autoReplay) {
+                $dom.attr('loop', 'loop');
+            }
             callback($dom);
         }
     }
@@ -60,6 +64,15 @@
                 }
             }, 50); // wait for image decode
         });
+    }
+
+    function updateAssetsRepeat(repeat) {
+        autoReplay = repeat;
+        if (repeat) {
+            $('video').attr('loop', 'loop');
+        } else {
+            $('video').removeAttr('loop');
+        }
     }
 
     $(document).ready(function() {
@@ -86,6 +99,10 @@
 
         socket.on('updateSettings', function(prop) {
             updateDanmakuSettings(prop);
+        });
+
+        socket.on('updateAssetsRepeat', function(prop) {
+            updateAssetsRepeat(prop.repeat);
         });
     });
 })();

@@ -4,6 +4,7 @@
 <title><%= SCREEN.data.title || 'SWall Local Controller' %></title>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/jquery.js"></script>
+<script src="/js/icheck.min.js"></script>
 <script src="/js/control.js"></script>
 <body class="page-control">
 <script>var SCREEN_CONNECTED = <% if (SCREEN.connected) { %>true<% } else { %>false<% } %>;</script>
@@ -35,7 +36,7 @@
         </div>
         <div class="main-right">
             <div class="module role-module-assets">
-                <div class="module-title"><h3>背景控制</h3><div class="float-right"><button class="button button-def role-assets-opendir">打开资源目录</button> <button class="button role-assets-scan">扫描资源</button></div></div>
+                <div class="module-title"><h3>背景控制</h3><span class="role-cont-asset-repeat"><input type="checkbox" class="role-asset-repeat" id="role-id-asset-repeat"<% if (SCREEN.preference.assets.repeat) { %> checked<% } %>><label for="role-id-asset-repeat">循环播放</label></span><div class="float-right"><button class="button button-def role-assets-opendir">打开资源目录</button> <button class="button role-assets-scan">扫描资源</button></div></div>
                 <div class="module-main"></div>
             </div>
         </div>

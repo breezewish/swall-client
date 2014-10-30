@@ -160,16 +160,28 @@
             }).done(callback);
         },
 
+        updateAssetsRepeat: function(repeat, callback) {
+            jQuery.ajax({
+                url: '/control/wall/asset/repeat',
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({
+                    repeat: !!repeat
+                }),
+                contentType: 'application/json',
+            }).done(callback);
+        },
+
         sendComment: function(comment, callback) {
             jQuery.ajax({
                 url: '/control/wall/comment',
                 type: 'POST',
+                cache: false,
                 data: JSON.stringify({
                     msg: comment,
                     color: '#FFF'
                 }),
                 contentType: 'application/json',
-                cache: false,
             }).done(callback);
         },
 
@@ -279,6 +291,17 @@
             $('.role-module-assets .assets-item-active').removeClass('assets-item-active');
             $(this).addClass('assets-item-active');
             API.switchToAsset(item.attr('data-hash'));
+        });
+
+        // iCheck
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_polaris',
+            radioClass: 'iradio_polaris'
+        });
+
+        // change repeat settings
+        $('.role-asset-repeat').on('ifChanged', function() {
+            API.updateAssetsRepeat($(this).prop('checked'));
         });
     });
 

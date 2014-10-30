@@ -31,6 +31,8 @@ class ScreenManager extends events.EventEmitter
                 visible:  true
                 duration: 10
                 maxline:  7
+            assets:
+                repeat:   false
             asset: {}
 
     _connectLast: (callback) =>
@@ -204,6 +206,13 @@ class ScreenManager extends events.EventEmitter
             maxline: maxline
         @preference.danmaku.duration = duration
         @preference.danmaku.maxline = maxline
+        @_updatePreference -> callback && callback()
+
+    # Update repeat settings
+    updateAssetsRepeat: (repeat, callback) =>
+        SERVER.io.to('wall').emit 'updateAssetsRepeat',
+            repeat: repeat
+        @preference.assets.repeat = repeat
         @_updatePreference -> callback && callback()
 
     # Update preference into database

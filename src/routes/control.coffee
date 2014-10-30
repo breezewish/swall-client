@@ -42,6 +42,9 @@ router.post '/wall/hide', (req, res, next) ->
 router.post '/wall/settings', (req, res, next) ->
     SCREEN.updateDanmakuSettings req.body.duration, req.body.maxline, responseHandler(req, res, next)
 
+router.post '/wall/asset/repeat', (req, res, next) ->
+    SCREEN.updateAssetsRepeat req.body.repeat, responseHandler(req, res, next)
+
 router.post '/wall/comment', (req, res, next) ->
     SCREEN.comment req.body, responseHandler(req, res, next)
 
