@@ -51,6 +51,12 @@
                 $dom.addClass('show');
                 if (assetToFadeout) {
                     assetToFadeout.removeClass('show');
+                    if (assetToFadeout.prop('tagName') === 'VIDEO') {
+                        assetToFadeout.animate({volume:0}, 500);
+                    }
+                    setTimeout(function() {
+                        assetToFadeout.remove();
+                    }, 500);
                 }
             }, 50); // wait for image decode
         });
@@ -80,12 +86,6 @@
 
         socket.on('updateSettings', function(prop) {
             updateDanmakuSettings(prop);
-        });
-
-        $('#bg').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', '.asset-item', function() {
-            if (!$(this).hasClass('show')) {
-                $(this).remove();
-            }
         });
     });
 })();
