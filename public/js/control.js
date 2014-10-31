@@ -77,6 +77,29 @@
             });
         },
 
+        refreshKeywords: function() {
+            jQuery.ajax({
+                url: '/control/keywords',
+                type: 'GET',
+                cache: false
+            }).done(function(data) {
+                var keywords = data.keywords;
+                $('.role-keyword-filter').text(keywords.join(' '));
+            });
+        },
+
+        setKeywords: function(keywords) {
+            jQuery.ajax({
+                url: '/control/keywords',
+                type: 'POST',
+                cache: false,
+                data: JSON.stringify({
+                    keywords: keywords
+                }),
+                contentType: 'application/json',
+            });
+        },
+
         connectScreen: function(id) {
             jQuery.ajax({
                 url: '/control/screen/connect/' + id.toString(),
@@ -267,6 +290,16 @@
 
         $('.role-danmuku-settings-update').click(function() {
             API.updateDanmakuSettings($('.role-danmaku-duration').val(), $('.role-danmaku-maxline').val());
+        });
+
+        // update keywords
+        $('.role-keywords-refresh').click(function() {
+            API.refreshKeywords();
+        });
+
+        $('.role-keywords-save').click(function() {
+            var keywords = $('.role-keyword-filter').val().split(/\s+/g);
+            API.setKeywords(keywords);
         });
 
         // load assets

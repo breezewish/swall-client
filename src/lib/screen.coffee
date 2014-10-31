@@ -159,6 +159,21 @@ class ScreenManager extends events.EventEmitter
             connected: @connected
             status:    @status
 
+    # Get current keywords from remote
+    getKeywords: (callback) =>
+        throw new Error('Please connect to a screen') if not @connected
+        API.get "/#{@data.actid}/info", callback
+
+    # Set keywords
+    setKeywords: (keywords, callback) =>
+        throw new Error('Please connect to a screen') if not @connected
+        console.log keywords
+        API.post "/#{@data.actid}/keywords",
+            json: true
+            body:
+                keywords: keywords
+        , callback
+
     # Reveal assets directory
     revealAssets: (callback) =>
         throw new Error('Please connect to a screen') if not @connected
@@ -177,6 +192,7 @@ class ScreenManager extends events.EventEmitter
 
     # Update walls' background
     switchToAsset: (hash, callback) =>
+        throw new Error('Please connect to a screen') if not @connected
         Assets.get @data.actid, hash, (err, asset) =>
             return callback && callback err if err
             return callback && callback new Error('Asset not found') if not asset
@@ -217,6 +233,7 @@ class ScreenManager extends events.EventEmitter
 
     # Update preference into database
     _updatePreference: (callback) =>
+        throw new Error('Please connect to a screen') if not @connected
         DB.run 'INSERT OR REPLACE INTO PREFERENCE (SID, data) VALUES ($sid, $data)',
             $sid: @data.actid
             $data: JSON.stringify(@preference)

@@ -15,6 +15,12 @@ responseHandler = (req, res, next) ->
 router.get '/screen/info/:id', (req, res, next) ->
     API.get "/#{req.params.id}/info", responseHandler(req, res, next)
 
+router.get '/keywords', (req, res, next) ->
+    SCREEN.getKeywords responseHandler(req, res, next)
+
+router.post '/keywords', (req, res, next) ->
+    SCREEN.setKeywords req.body.keywords, responseHandler(req, res, next)
+
 router.get '/screen/status', (req, res, next) ->
     SCREEN.getStatus responseHandler(req, res, next)
 
