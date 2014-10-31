@@ -167,7 +167,6 @@ class ScreenManager extends events.EventEmitter
     # Set keywords
     setKeywords: (keywords, callback) =>
         throw new Error('Please connect to a screen') if not @connected
-        console.log keywords
         API.post "/#{@data.actid}/keywords",
             json: true
             body:
@@ -246,7 +245,7 @@ class ScreenManager extends events.EventEmitter
     # Get a short URI
     getShortcutURI: =>
         part = url.parse @preference.URI
-        "#{part.host}#{part.path}"
+        "www.#{part.host}#{part.path}"
 
 module.exports = (host) -> new ScreenManager(host)
 module.exports.ScreenManager = ScreenManager

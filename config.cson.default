@@ -9,6 +9,7 @@ SQLiteFile:   './db.sqlite'
 AssetsFilter:
     Video: ['.mp4', '.webm']
     Image: ['.jpg', '.jpeg', '.png']
+    Webpage: ['.html', '.htm']
 
 Thumbnail:
     Size:

@@ -75,15 +75,18 @@ Assets =
                             # calculate hash
                             hash.file fObj.path, (err, sum) ->
                                 assetsHash = sum
-                                thumbnailPath = path.join(Assets.getThumbnailDirectory(id), "#{assetsHash}.thumbnail.jpg")
+                                thumbnailPath = path.join(Assets.getThumbnailDirectory(id), "#{assetsHash}.thumbnail.jpg") if fObj.type isnt 'html'
                                 callback()
 
                         (callback) ->
                             # create thumbnail
                             return callback() if fs.existsSync(thumbnailPath)
+                            return callback() if fObj.type is 'html'
                             thumbnail fObj.path, thumbnailPath, fObj.type, callback
 
                         (callback) ->
+                            thumbnail_final = ''
+                            thumbnail_final = Assets.getRelativeURI thumbnailPath if fObj.type isnt 'html'
                             # update database
                             DB.run 'INSERT OR REPLACE INTO ASSET
                                 (AID, SCREENID, type, description, hash, URI, thumbnailURI, valid) VALUES
@@ -101,7 +104,7 @@ Assets =
                                 $type: fObj.type
                                 $hash: assetsHash
                                 $URI: fObj.relative
-                                $thumbnailURI: Assets.getRelativeURI thumbnailPath
+                                $thumbnailURI: thumbnail_final
                             , callback
                     ], callback
                 , callback
@@ -112,23 +115,28 @@ Assets =
     _scanFile: (id, callback) ->
         files = []
         directory = Assets.getDirectory(id)
-        finder = findit directory
-        finder.on 'end', ->
-            callback && callback files
-        finder.on 'file', (file, stat) ->
-            # ignore thumbnail files
-            return if file.toLowerCase().indexOf('.thumbnail.') > -1
+
+        f = fs.readdirSync directory
+        for file in f
+            fp = path.join(directory, file)
+            stat = fs.statSync fp
+            continue if stat.isDirectory()
+            continue if fp.toLowerCase().indexOf('.thumbnail.') > -1
             # get assets type
-            ext = path.extname(file).toLowerCase()
+            ext = path.extname(fp).toLowerCase()
             if ext in CONFIG.AssetsFilter.Video
                 type = 'video'
             else if ext in CONFIG.AssetsFilter.Image
                 type = 'image'
+            else if ext in CONFIG.AssetsFilter.Webpage
+                type = 'html'
             else
-                return
+                continue
             files.push
-                path: file
+                path: fp
                 type: type
-                relative: Assets.getRelativeURI file
+                relative: Assets.getRelativeURI fp
+
+        callback && callback files
 
 module.exports = Assets;

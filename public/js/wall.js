@@ -43,6 +43,9 @@
                 $dom.attr('loop', 'loop');
             }
             callback($dom);
+        } else if (asset.type === 'html') {
+            var $dom = $('<iframe src="' + asset.URI + '?_=' + Date.now() + '" class="asset-iframe asset-item"></iframe>');
+            callback($dom);
         }
     }
 

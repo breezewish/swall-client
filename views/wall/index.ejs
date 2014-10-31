@@ -8,7 +8,7 @@ var PREFERENCE = <%- JSON.stringify(SCREEN.preference) %>;
 <body class="page-wall">
     <div id="bg"></div>
     <div id="danmaku" class="<% if (SCREEN.preference.danmaku.visible) { %>show<% } %>"></div>
-    <div id="float-window" class="<% if (SCREEN.preference.danmaku.visible) { %>show<% } %>">弹幕：<%= SCREEN.getShortcutURI() %></div>
+    <div id="float-window" class="<% if (SCREEN.preference.danmaku.visible) { %>show<% } %>">发弹幕：<%= SCREEN.getShortcutURI() %></div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/jquery.js"></script>
 <script src="/js/danmaku.js"></script>

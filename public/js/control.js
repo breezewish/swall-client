@@ -28,11 +28,7 @@
                 if (item.description.length == 0) {
                     item.description = '<none>';
                 }
-                var inner = '';
-                if (item.type === 'video') {
-                    inner = '<div class="assets-type-video"></div>';
-                }
-                var img = '<div class="assets-img" style="background-image:url(' + item.thumbnailURI + ')">' + inner + '</div>';
+                var img = '<div class="assets-img" style="background-image:url(' + item.thumbnailURI + ')"></div>';
                 var desc = '<div class="assets-desc">' + escapeHTML(item.description) + '</div>';
                 return '<div class="assets-item" data-URI="' + item.URI + '" data-hash="' + item.hash + '"><div class="assets-inner">' + img + desc + '</div></div>';
             },
