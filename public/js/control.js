@@ -294,7 +294,9 @@
         });
 
         $('.role-keywords-save').click(function() {
-            var keywords = $('.role-keyword-filter').val().split(/\s+/g);
+            var keywords = $('.role-keyword-filter').val().split(/\s+/g).filter(function(v) {
+                return v.length > 0;
+            });
             API.setKeywords(keywords);
         });
 
