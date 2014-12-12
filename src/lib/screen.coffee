@@ -192,9 +192,9 @@ class ScreenManager extends events.EventEmitter
     #     Assets.updateDescription @data.actid, hash, description, callback
 
     # Update walls' background
-    switchToAsset: (hash, callback) =>
+    switchToAsset: (URI, callback) =>
         throw new Error('Please connect to a screen') if not @connected
-        Assets.get @data.actid, hash, (err, asset) =>
+        Assets.get @data.actid, URI, (err, asset) =>
             return callback && callback err if err
             return callback && callback new Error('Asset not found') if not asset
             SERVER.io.to('wall').emit 'switchTo', asset

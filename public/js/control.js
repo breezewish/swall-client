@@ -33,7 +33,7 @@
                     img += '<div class="assets-type-video"></div>'
                 }
                 var desc = '<div class="assets-desc">' + escapeHTML(item.description) + '</div>';
-                return '<div class="assets-item" data-URI="' + item.URI + '" data-hash="' + item.hash + '"><div class="assets-inner">' + img + desc + '</div></div>';
+                return '<div class="assets-item" data-URI="' + item.URI + '"><div class="assets-inner">' + img + desc + '</div></div>';
             },
             reload: function(data) {
                 var html = '';
@@ -146,10 +146,13 @@
             });
         },
 
-        switchToAsset: function(hash, callback) {
+        switchToAsset: function(URI, callback) {
             jQuery.ajax({
-                url: '/control/wall/switch/' + hash,
+                url: '/control/wall/switch',
                 type: 'POST',
+                data: {
+                    URI: URI
+                },
                 cache: false,
             }).done(callback);
         },
@@ -325,7 +328,7 @@
             //zif ($(this).hasClass('assets-item-active')) return;
             $('.role-module-assets .assets-item-active').removeClass('assets-item-active');
             $(this).addClass('assets-item-active');
-            API.switchToAsset(item.attr('data-hash'));
+            API.switchToAsset(item.attr('data-URI'));
         });
 
         // iCheck

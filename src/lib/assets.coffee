@@ -28,17 +28,17 @@ Assets =
     openDirectory: (id) ->
         open Assets.getDirectory(id)
 
-    get: (id, hash, callback) ->
-        DB.all 'SELECT description, URI, thumbnailURI, type, hash FROM ASSET WHERE hash = $hash AND SCREENID = $sid LIMIT 1',
+    get: (id, URI, callback) ->
+        DB.all 'SELECT * FROM ASSET WHERE URI = $URI AND SCREENID = $sid AND valid = 1 LIMIT 1',
             $sid: id
-            $hash: hash
+            $URI: URI
         , (err, data) ->
             return callback && callback err if err
             return callback && callback() if data.length is 0
             callback null, data[0]
 
     queryAll: (id, callback) ->
-        DB.all 'SELECT description, URI, thumbnailURI, type, hash FROM ASSET WHERE SCREENID = $sid AND valid = 1 ORDER BY description ASC',
+        DB.all 'SELECT * FROM ASSET WHERE SCREENID = $sid AND valid = 1 ORDER BY description ASC',
             $sid: id
         , callback
 
@@ -92,7 +92,7 @@ Assets =
                             # update database
                             DB.run 'INSERT OR REPLACE INTO ASSET
                                 (AID, SCREENID, type, description, hash, URI, thumbnailURI, valid) VALUES
-                                ((SELECT AID FROM ASSET WHERE URI = $URI AND SCREENID = $sid), 
+                                ((SELECT AID FROM ASSET WHERE URI = $URI AND SCREENID = $sid AND valid = 1), 
                                  $sid,
                                  $type,
                                  $name,

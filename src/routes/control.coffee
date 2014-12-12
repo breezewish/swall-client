@@ -33,11 +33,13 @@ router.post '/assets/reveal', (req, res, next) ->
 router.post '/assets/scan', (req, res, next) ->
     SCREEN.scanAssets responseHandler(req, res, next)
 
-router.post '/assets/:hash/modify', (req, res, next) ->
-    SCREEN.updateAssetDesc req.params.hash, req.body.description, responseHandler(req, res, next)
+# deprecated
+# 
+# router.post '/assets/:hash/modify', (req, res, next) ->
+#     SCREEN.updateAssetDesc req.params.hash, req.body.description, responseHandler(req, res, next)
 
-router.post '/wall/switch/:hash', (req, res, next) ->
-    SCREEN.switchToAsset req.params.hash, responseHandler(req, res, next)
+router.post '/wall/switch', (req, res, next) ->
+    SCREEN.switchToAsset req.body.URI, responseHandler(req, res, next)
 
 router.post '/wall/show', (req, res, next) ->
     SCREEN.setDanmakuVisibility true, responseHandler(req, res, next)
