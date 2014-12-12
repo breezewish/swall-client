@@ -42,14 +42,16 @@ Assets =
             $sid: id
         , callback
 
-    updateDescription: (id, hash, description, callback) ->
-        DB.run 'UPDATE ASSET SET description = $desc WHERE hash = $hash AND SCREENID = $sid',
-            $desc: description
-            $hash: hash
-            $sid: id
-        , (err) ->
-            return callback && callback err if err
-            Assets.queryAll id, callback
+    # deprecated
+    # 
+    # updateDescription: (id, hash, description, callback) ->
+    #     DB.run 'UPDATE ASSET SET description = $desc WHERE hash = $hash AND SCREENID = $sid',
+    #         $desc: description
+    #         $hash: hash
+    #         $sid: id
+    #     , (err) ->
+    #         return callback && callback err if err
+    #         Assets.queryAll id, callback
 
     scan: (id, callback) ->
         f = []
@@ -90,10 +92,10 @@ Assets =
                             # update database
                             DB.run 'INSERT OR REPLACE INTO ASSET
                                 (AID, SCREENID, type, description, hash, URI, thumbnailURI, valid) VALUES
-                                ((SELECT AID FROM ASSET WHERE hash = $hash AND SCREENID = $sid), 
+                                ((SELECT AID FROM ASSET WHERE URI = $URI AND SCREENID = $sid), 
                                  $sid,
                                  $type,
-                                 COALESCE((SELECT description FROM ASSET WHERE hash = $hash AND SCREENID = $sid), $name),
+                                 $name,
                                  $hash,
                                  $URI,
                                  $thumbnailURI,

@@ -309,6 +309,7 @@
         }
 
         // change assets description
+        /*
         $('.role-module-assets').on('click', '.assets-desc', function(ev) {
             var item = $(this).closest('.assets-item');
             var enter = prompt('请输入描述:', $(this).text());
@@ -316,7 +317,7 @@
                 API.updateAssetDescription(item.attr('data-hash'), enter);
             }
             ev.stopPropagation();
-        });
+        });*/
 
         // switch assets
         $('.role-module-assets').on('click', '.assets-item', function() {

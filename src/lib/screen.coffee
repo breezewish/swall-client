@@ -185,9 +185,11 @@ class ScreenManager extends events.EventEmitter
         Assets.scan @data.actid, callback
 
     # Update the description of an asset and return all assets
-    updateAssetDesc: (hash, description, callback) =>
-        throw new Error('Please connect to a screen') if not @connected
-        Assets.updateDescription @data.actid, hash, description, callback
+    # deprecated
+    # 
+    # updateAssetDesc: (hash, description, callback) =>
+    #     throw new Error('Please connect to a screen') if not @connected
+    #     Assets.updateDescription @data.actid, hash, description, callback
 
     # Update walls' background
     switchToAsset: (hash, callback) =>
