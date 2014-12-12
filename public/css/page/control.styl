@@ -64,13 +64,13 @@
     .main-left
         left: 0
         top: 0
-        width: 50%
+        width: $control-left-panel-width
         height: 100%
         position: absolute
 
     .main-right
-        left: 50%
-        width: 50%
+        left: $control-left-panel-width
+        right: 0
         top: 0
         height: 100%
         position: absolute
@@ -115,7 +115,7 @@
 
     .assets-item
         display: inline-block
-        width: 50%
+        width: $control-asset-width
         box-sizing: border-box
         padding: 10px
         transition: background-color .2s
@@ -166,7 +166,6 @@
         color: #FFF
         padding: 10px
         box-sizing: border-box
-        cursor: text
     
     .role-danmaku-duration, .role-danmaku-maxline
         width: 50px
