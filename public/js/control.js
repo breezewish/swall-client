@@ -83,7 +83,7 @@
                 cache: false
             }).done(function(data) {
                 var keywords = data.keywords;
-                $('.role-keyword-filter').text(keywords.join(' '));
+                $('.role-keyword-filter').val(keywords.join(' '));
             });
         },
 
