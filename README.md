@@ -15,7 +15,7 @@ Social Wall is separated to 2 parts, the server-side and the client-side. Server
 - Display video / image backgrounds.
 - Dynamically add backgrounds and switch smoothly.
 - Locally store background resources: no extra traffic.
-- Platform as a service (PaaS) & open-source.
+- Service as a service (SaaS) & open-source.
 
 ## Client-side requirements
 
